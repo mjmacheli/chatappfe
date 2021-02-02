@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react'
+import { Container,Menu,Input } from 'semantic-ui-react'
+import {BrowserRouter as Router ,Switch,Route, useHistory } from 'react-router-dom'
 
-function App() {
+import FriendsList from './components/FriendsList/FriendsList'
+import Chats from './components/Chat/Chat'
+import Login from './components/Login/Login'
+import Register from './components/Register/Register'
+import Group from './components/Group/Group'
+
+const App = () => {
+
+  const history = useHistory()
+  
+  const [activeItem,setActiveItem] = useState('Friends')
+
+  const handleItemClick = (name) => setActiveItem(name)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+    <Container>
+        <Menu secondary>
+          <Menu.Item
+            name='Chats'
+            active={activeItem === 'Chats'}
+            onClick={() => handleItemClick('Chats')}
+          />
+          <Menu.Item
+            name='Groups'
+            active={activeItem === 'Groups'}
+            onClick={() => handleItemClick('Groups')}
+          />
+          <Menu.Item
+            name='Friends'
+            active={activeItem === 'Friends'}
+            onClick={() => handleItemClick('Friends')}
+          />
+          <Menu.Menu position='right'>
+            <Menu.Item>
+              <Input icon='search' placeholder='Find Friends...' />
+            </Menu.Item>
+            <Menu.Item
+              name='Logout'
+              active={activeItem === 'Logout'}
+              onClick={() => handleItemClick('Logout')}
+            />
+          </Menu.Menu>
+        </Menu>
+        <Switch>
+          <Route path='/' component={Login} exact/>
+          <Route path='/register' component={Register} exact /> 
+          <Route path='/home' component={FriendsList} exact/>
+          <Route path='/chat' component={Chats} exact/>
+          <Route path='/group' component={Group} exact/>
+        </Switch>
+    </Container>
+    </Router>
+  )
 }
 
 export default App;
