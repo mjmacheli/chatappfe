@@ -47,7 +47,7 @@ const App = () => {
           </Menu.Menu>
         </Menu>
         <Switch>
-          <Route path='/' component={Login} exact/>
+          <Route path='/' component={Group} exact/>
           <Route path='/register' component={Register} exact /> 
           <Route path='/home' component={FriendsList} exact/>
           <Route path='/chat' component={Chats} exact/>
